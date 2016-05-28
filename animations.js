@@ -2,7 +2,10 @@ $(document).ready(function() {
 	///INIT///
 	var maxChar = 140;
 	var currentTweet = "";
+	var fadeTime = 300;
 	$("#tweet-controls").hide();
+	$(".tweet-actions").hide();
+	$(".reply").hide();
 	///EVENTS///
 	$(".tweet-compose").click(function(event) {
 		$(".tweet-compose").css("height","5em");
@@ -19,12 +22,22 @@ $(document).ready(function() {
 		console.log(currentChar);
 		currentTweet = $(this).val();
 	});
+	$(".tweet").mouseover(function(event) {
+		$(this).find(".tweet-actions").fadeIn(fadeTime);
+	});
+	$(".tweet").mouseleave(function(event) {
+		$(this).find(".tweet-actions").fadeOut(fadeTime);
+	});
+	$(".tweet").click(function(event) {
+		$(this).find(".reply").fadeIn(fadeTime);
+	});
 	$("#tweet-submit").click(function(event) {
 		$(".tweet-compose").val('')
-		$(".tweet .content:first-child").prepend('<div class="content">'+
+		$("#stream").prepend('<div class="tweet">'+
+												'<div class="content">'+
 												'<img class="avatar" src="img/alagoon.jpg" />'+
 												'<strong class="fullname">Your Name Here</strong>'+
-												'<span class="username">@yournamehere</span>'+
+												'<span class="username"> @yournamehere</span>'+
 												'<p class="tweet-text">'+currentTweet+'</p>'+
 												'<div class="tweet-actions">'+
 												'<ul>'+
@@ -36,17 +49,13 @@ $(document).ready(function() {
 												'</div>'+
 												'<div class="stats">'+
 												'<div class="retweets">'+
-												'<p class="num-retweets">30</p>'+
-												'<p>RETWEETS</p>'+
+												'<p class="num-retweets"></p>'+
 												'</div>'+
 												'<div class="favorites">'+
-												'<p class="num-favorites">6</p>'+
-												'<p>FAVORITES</p>'+
+												'<p class="num-favorites"></p>'+
 												'</div>'+
 												'<div class="users-interact">'+
 												'<div>'+
-												'<img src="img/alagoon.jpg" />'+
-												'<img src="img/vklimenko.jpg" />'+
 												'</div>'+
 												'</div>'+
 												'<div class="time">'+
@@ -55,10 +64,11 @@ $(document).ready(function() {
 												'</div>'+
 												'<div class="reply">'+
 												'<img class="avatar" src="img/alagoon.jpg" />'+
-												'<textarea class="tweet-compose" placeholder="Reply to @mybff"/></textarea>'+
+												'<textarea class="tweet-compose" placeholder="Reply to @yournamehere"/></textarea>'+
 												'</div>'+
 												'</div>'+
-												'</div>')
+												'</div>'+
+												'</div>');
 	});
 
 })
